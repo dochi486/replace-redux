@@ -4,7 +4,7 @@ let globalState = {};
 let listners = [];
 let actions = {};
 
-export const useStore = () => {
+export const useStore = (shouldListen = true) => {
   const setState = useState(globalState)[1];
 
   const dispatch = (actionIdentifier, payload) => {
@@ -17,12 +17,16 @@ export const useStore = () => {
   };
 
   useEffect(() => {
-    listners.push(setState);
+    if (shouldListen) {
+      listners.push(setState);
+    }
 
     return () => {
-      listners = listners.filter((li) => li !== setState);
+      if (shouldListen) {
+        listners = listners.filter((li) => li !== setState);
+      }
     };
-  }, [setState]);
+  }, [setState, shouldListen]);
 
   return [globalState, dispatch];
 };
