@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 
 import ProductItem from '../components/Products/ProductItem';
-import productsContext, { ProductsContext } from '../context/productsContext';
+import { ProductsContext } from '../context/productsContext';
 import './Products.css';
 
 const Products = (props) => {
-  const productList = useContext(productsContext).products;
+  const productList = useContext(ProductsContext).products;
 
   return (
     <ul className="products-list">
